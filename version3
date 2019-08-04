@@ -1,0 +1,212 @@
+#Jordan Matthews Rubbish Game
+
+
+import time #imports time function, so
+import random #imports random function, so
+
+#write to file code
+
+class Question: #Creates the class Question, which is the class that sets up the available answers and their layout when printed to the user, according to the respective question they belong to.
+    
+    def __init__(self, questions, answer, wrongAnswers): #Initialises the class Question, and its instance variables.
+        self.questions = questions
+        self.answer = answer
+        self.wrongAnswers = wrongAnswers
+        self.set_answers() #Calls the method set_answers(), which the method which sorts all possible answers for each question. 
+        
+    
+    def set_answers(self): #Defines the method set_answers, where the answers to all questions are put inside the variable "answers"
+        self.answers = self.wrongAnswers #The variable answers is set to equal the same as the variable wrongAnswers, which is the variable that stores the wrong answers.
+        self.answers.insert(random.randrange(len(self.wrongAnswers) + 1), self.answer) #This inserts the right answer (self.answer) in a random place in the variable self.answers. This ensures that, with each different run-through of the program, the answers are shuffled.
+        
+        
+        
+
+class Quiz: #Defines the class Quiz, where the actual quiz takes place. In this class, the user is asked the questions and the program processes this, checking for right and wrong answers.
+    
+    
+    def __init__(self, userName, userOrganization, score=0, count=0): #Initialises the class Quiz, and its instance variables.
+        
+        self.userName = userName #Calls the method userName, which is where the users name is stored.
+        self.userOrganization = userOrganization #Calls the method userOrganization, which is where the users chosen organization is stored.
+        self.questions = [] #Calls the method questions, which is where the questions are stored.
+        self.count = count #Calls the method count, which is where the count is stored.
+        self.score = score #Calls the method score, which is where the users score is stored.       
+        self.scoreList = [] #Calls the method scoreList, which is where the scorelist is stored.
+        self.questions.append(Question("How long does it take for plastic to decompose?", "500 Years", ["2 Days", "100 Years"])) #Creates the first question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("What is the best way to save power in your household?", "Switch off lights and appliances that your not using", ["Buy a toaster", "Stick a knife in a power socket"]))
+        #Creates the Second question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("What country produces the most waste?", "US" , ["China", "New Zealand"]))
+        #Creates the third question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("How much does it cost to clean the streets of England every year in pounds £?", "858,000,000", ["100,000,000,000", "1,000,000"]))
+        #Creates the fourth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("What should you do when your finished with your rubbish?", "Put it in a bin", ["leave it on the street", "eat it"]))
+        #Creates the fifth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("How much plastic bottles are thrown away every hour?", "2.5 million", ["500 thousand", "1 billion"]))
+        #Creates the Sixth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("What should you do If you find a piece of rubbish on the ground?", "Pick it up and dispose of it in a bin", ["Leave it there as that's someone elses problem", "Just stare at it without doing anything"]))
+        #Creates the seventh question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("How much tonnes of waste is discarded every year in nz?", "15.5 million tonnes", ["20 million tonnes", "5 million tonnes"]))
+        #Creates the eighth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("How much times can glass be recycled ?", "Indefinitely", ["50 times", "20 times"]))
+        #Creates the ninth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+        self.questions.append(Question("How long does it take to recycle an aluminium car?", "Two months", ["3 Days", "8 Years"]))
+        #Creates the tenth question. The question itself is stored as the variable "questions", which is seen in as a parameter for the Question class. The right answer is stored in the variable "answer", with the wrong answers stored in the variable "wrongAnswers".
+        time.sleep(1)#Waits 1 second before proceeding
+                
+                                                                      
+    
+    
+    def start_quiz(self): #Defines the method start_quiz, which holds the procedure where the program prints out the question and its respective answers for the user.
+        for question in self.questions:# This code stops the program from asking both questions at once, due to the following code being indexed, it makes sure that the program receives the user's answer before moving to the next question.
+            print(question.questions) #Print the value stored in the variable question, to which each item in the list has one.
+            
+            for i in range(len(question.answers)): #For the range of the length of the variable answers, using the information for the current question.
+                print("\t" + str(i) + "\t" + question.answers[i]) #Prints out the number placing of each item, as well as the item stored in that placing. So, the user receives a number and the answer stored in that position.
+            print() #Prints a blank line
+            self.process_answer(question) #Calls the method process_answer, with question as the parameter. This is so the information for question is carried over to the other method. 
+        
+    
+    def process_answer(self, question):
+        time.sleep(1) #Waits 1 second before proceeding
+        test_answer = -1  #The variable user_answer is set to -1. This is so the following line of code can function correctly, and the while loop can be run initially.
+        while not 0 <= test_answer < len(question.answers): #While 0 is not less than or equal to test_answer, which is less than the answers stored for the corresponding question. This means that, if the user's input to the following question is not in range or is invalid, the while loop will continue.
+            user_answer = input("Enter the number for your answer: ") #The user's input to this question is stored as the variable "user_answer." 
+            
+            try: #Try, as in the program undergoes the following code to see if it functions properly.
+                test_answer = int(user_answer)#The variable test_answer is set to the user's input to the preceding question. This value is converted into an integer. It is converted in the case that the user inputted an invalid string for the preceding question, which would make the following calculations and conditions impossible, which would then cause the code to go to the "except" down below because of the produced error. 
+                
+                if not 0 <= test_answer < len(question.answers):  #If 0 is not less than or equal to test_answer. 
+                    print("invalid Input") #Prints the appropriate error message.      
+                     
+                else: #Else, if the user's answer was in range
+
+                    if test_answer == question.answers.index(question.answer): #If the user's input equals the correct answer. 
+                        print("That's correct!", userName) #Prints the appropriate  message. 
+                        time.sleep(1)
+                        self.score += 1 #Sets the score so it adds one on to the previous score.
+                    
+                    else:  #Else, if user_answer does not equal the correct answer, and is not out of range
+                        print("Nah" ,userName, "that's wrong :(")#Prints the appropriate  message.
+                        time.sleep(1)                    
+            
+            except ValueError: #Except, when the program tries the preceding code and produces an error, the program runs the following code.
+                print("invalid Input") #Prints the appropriate  message. 
+            
+            
+
+        print("Your score is now:", self.score, "out of 10") #Prints the appropriate  message. 
+        self.count += 1 #Adds 1 to the variable count, so when the count = 10 (10 questions), the game will end.
+        time.sleep(1)#Waits 1 second before proceeding
+        
+        if self.count == 10: #If count = 10, it will end the game.
+            self.end_game() #Calls end_game function.       
+            
+        
+    
+    def end_game(self):
+        
+        
+        print("You have now reached the end of the game!") #Prints the appropriate  message. 
+        time.sleep(1)#Waits 1 second before proceeding
+        print()
+        print("Your final score is", self.score, "out of 10") #Prints the users final score out of 10.
+        time.sleep(1)#Waits 1 second before proceeding
+        print()
+        self.scoreList.insert(0, self.score)
+        
+        
+        tracker = False
+        while tracker != True:
+            choice = input("Would you like to (P)lay again, or export your (S)cores to the text file?: ")#Prints the appropriate  message.
+            time.sleep(1)#Waits 1 second before proceeding
+            if choice == "P":
+                self.score = 0 #Sets score back to 0
+                self.count = 0 #Sets count back to 0
+                self.start_quiz() #Starts over
+                tracker = True
+        
+            elif choice == "S":
+                self.user_recentscores() #Calls recentscores 
+                tracker = True
+        
+        
+            else:
+                print("That is not a valid answer")#Prints the appropriate  message.
+                time.sleep(1)#Waits 1 second before proceeding
+                
+        
+    def user_recentscores(self):
+        print("Your past scores for this session have been written in the text file! Thank you for playing") #Prints the appropriate  message.
+        time.sleep(4)#Waits 4 second before proceeding
+        text = open("user-recentscores.txt", "w") #Opens the text file which the past scores are displayed
+        text.write("Past Results, from Recent to Old: \n") #Prints this line in the text file
+        for score in self.scoreList:
+            text.write("\n" + str(score) + " out of 10") #Shows the previous scores out of 10 in the text file
+        text.close() #Closes the game       
+        
+        
+        
+        
+#Main Routine        
+userOrganization = 0 #sets userOrginization to 0
+userName = 0 #sets userName to 0
+
+userName = input("What is your name? ")
+print()#Prints a blank line
+time.sleep(1)#Waits 1 second before proceeding
+print("Welcome", userName, "to my rubbish game quiz!")
+print()#Prints a blank line
+time.sleep(1)#Waits 1 second before proceeding
+
+
+tracker = False # if the user doesn’t put in a valid organisation, it stays at “False”, and the while loop continues
+while tracker != True:
+    userOrganization = input("Would you like to work with (C)hristrhuch City Council, (T)ranswaste Canterbury, (W)aimakariri District Council or (N)orth Canterbury Waste Solutions? : ").upper()
+    if userOrganization == "C":
+        userOrganization = "Christchurch City Council"
+        time.sleep(1)#Waits 1 second before proceeding
+        tracker = True #Ends the while loop
+        
+    elif userOrganization == "T":
+        userOrganization = "Transwaste Canterbury"
+        time.sleep(1)#Waits 1 second before proceeding
+        tracker = True #Ends the while loop
+        
+    elif userOrganization == "W":
+        userOrganization = "Waimakariri District Council"
+        time.sleep(1)#Waits 1 second before proceeding
+        tracker = True #Ends the while loop
+    
+    elif userOrganization == "N":
+        userOrganization = "North Canterbury Waste Solutions"
+        time.sleep(1)#Waits 1 second before proceeding
+        tracker = True #Ends the while loop
+        
+    else:
+        print("That is not a valid Organization")
+        time.sleep(1)#Waits 1 second before proceeding
+        
+
+print()#Prints a blank line
+print("Welcome", userName, "from the", userOrganization, "! :) ")
+print()#Prints a blank line
+time.sleep(1)#Waits 1 second before proceeding
+print("The aim is answer as many questions right out of 10")
+print()#Prints a blank line
+time.sleep(2)#Waits 2 second before proceeding
+print("I will now ask you a range of questions regarding rubbish to put your knowledge to the test.", "Good luck", userName)
+print()#Prints a blank line
+time.sleep(4)#Waits 4 second before proceeding
+
+quiz = Quiz(userName, userOrganization) 
+quiz.start_quiz()
