@@ -1,0 +1,164 @@
+
+
+
+import time 
+import random 
+
+
+
+class Question:
+    
+    def __init__(self, questions, answer, wrongAnswers): 
+        self.questions = questions
+        self.answer = answer
+        self.wrongAnswers = wrongAnswers
+        self.set_answers() 
+        
+    
+    def set_answers(self):
+        self.answers = self.wrongAnswers 
+        self.answers.insert(random.randrange(len(self.wrongAnswers) + 1), self.answer)
+        
+        
+
+class Quiz:
+    
+    
+    def __init__(self, userName, userOrganization, score=0, count=0): 
+        
+        self.userName = userName 
+        self.userOrganization = userOrganization 
+        self.questions = []
+        self.count = count 
+        self.score = score 
+        self.scoreList = [] 
+        
+        self.questions.append(Question("How long does it take for plastic to decompose?", "500 Years", ["2 Days", "100 Years"])) 
+        self.questions.append(Question("What is the best way to save power in your household?", "Switch off lights and appliances that your not using", ["Buy a toaster", "Stick a knife in a power socket"]))
+        self.questions.append(Question("What country produces the most waste?", "US" , ["China", "New Zealand"]))
+        self.questions.append(Question("How much does it cost to clean the streets of England every year in pounds £?", "858,000,000", ["100,000,000,000", "1,000,000"]))
+        self.questions.append(Question("What should you do when your finished with your rubbish?", "Put it in a bin", ["leave it on the street", "eat it"]))
+        self.questions.append(Question("How much plastic bottles are thrown away every hour?", "2.5 million", ["500 thousand", "1 billion"]))
+        self.questions.append(Question("What should you do If you find a piece of rubbish on the ground?", "Pick it up and dispose of it in a bin", ["Leave it there as that's someone elses problem", "Just stare at it without doing anything"]))
+        self.questions.append(Question("How much tonnes of waste is discarded every year in nz?", "15.5 million tonnes", ["20 million tonnes", "5 million tonnes"]))
+        self.questions.append(Question("How much times can glass be recycled ?", "Indefinitely", ["50 times", "20 times"]))
+        self.questions.append(Question("How long does it take to recycle an aluminium car?", "Two months", ["3 Days", "8 Years"]))
+       
+        
+    def start_quiz(self): 
+        for question in self.questions:
+            print(question.questions) 
+            
+            for i in range(len(question.answers)): 
+                print("\t" + str(i) + "\t" + question.answers[i]) 
+            print() 
+            self.process_answer(question) 
+        
+    
+    def process_answer(self, question):
+        test_answer = -1  
+        while not 0 <= test_answer < len(question.answers): 
+            user_answer = input("Enter the number for your answer: ") 
+            
+            try: 
+                test_answer = int(user_answer)
+                
+                if not 0 <= test_answer < len(question.answers):   
+                    print("invalid Input")    
+                     
+                else: 
+
+                    if test_answer == question.answers.index(question.answer): 
+                        print("That's correct!", userName) 
+                        self.score += 1 
+                    
+                    else:  
+                        print("Nah" ,userName, "that's wrong :(")
+                                           
+            
+            except ValueError: 
+                print("invalid Input") 
+            
+            
+
+        print("Your score is now:", self.score, "out of 10")  
+        self.count += 1 
+        if self.count == 10:
+            self.end_game()
+            
+        
+    
+    def end_game(self):
+        
+        
+        print("You have now reached the end of the game!") 
+        print("Your final score is", self.score, "out of 10")
+        self.scoreList.insert(0, self.score)
+        
+        
+        tracker = False
+        while tracker != True:
+            choice = input("Would you like to (P)lay again, or export your (S)cores to the text file?: ")
+            if choice == "P":
+                self.score = 0 
+                self.count = 0 
+                self.start_quiz()
+                tracker = True
+        
+            elif choice == "S":
+                self.user_recentscores() 
+                tracker = True
+        
+        
+            else:
+                print("That is not a valid answer")
+                
+                
+        
+    def user_recentscores(self):
+        print("Your past scores for this session have been written in the text file! Thank you for playing") 
+        text = open("user-recentscores.txt", "w") 
+        text.write("Past Results, from Recent to Old: \n") 
+        for score in self.scoreList:
+            text.write("\n" + str(score) + " out of 10") 
+        text.close() 
+        
+        
+        
+       
+userOrganization = 0 
+userName = 0 
+
+userName = input("What is your name? ")
+print("Welcome", userName, "to my rubbish game quiz!")
+
+
+
+tracker = False 
+while tracker != True:
+    userOrganization = input("Would you like to work with (C)hristrhuch City Council, (T)ranswaste Canterbury, (W)aimakariri District Council or (N)orth Canterbury Waste Solutions? : ").upper()
+    if userOrganization == "C":
+        userOrganization = "Christchurch City Council"
+        tracker = True 
+        
+    elif userOrganization == "T":
+        userOrganization = "Transwaste Canterbury"
+        tracker = True 
+        
+    elif userOrganization == "W":
+        userOrganization = "Waimakariri District Council"
+        tracker = True 
+    
+    elif userOrganization == "N":
+        userOrganization = "North Canterbury Waste Solutions"
+        tracker = True 
+        
+    else:
+        print("That is not a valid Organization")
+       
+print("Welcome", userName, "from the", userOrganization, "! :) ")
+print("The aim is answer as many questions right out of 10")
+print("I will now ask you a range of questions regarding rubbish to put your knowledge to the test.", "Good luck", userName)
+
+quiz = Quiz(userName, userOrganization) 
+quiz.start_quiz()
